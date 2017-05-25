@@ -1,4 +1,4 @@
 from .. import VERSION
 
-def test_tests_work():
+def test_version_is_a_string():
     assert type(VERSION) is str
