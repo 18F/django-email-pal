@@ -47,7 +47,3 @@ If you want to work on documentation, you can run the development
 documentation server with::
 
     python setup.py devdocs
-
-Template Information
---------------------
-:ref:`Base Template Documentation`
