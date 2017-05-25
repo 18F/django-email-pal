@@ -28,3 +28,5 @@ def test_sending_email_works():
     assert "I am <strong>not</strong> plaintext" in html
 
     e.send_messages(ctx)
+
+    # TODO: Ensure that a message was sent to Django's fake email outbox.
