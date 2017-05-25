@@ -2,3 +2,4 @@ tox==2.7.0
 sphinx-autobuild==0.6.0
 -r requirements-testenv.txt
 -r requirements-docs.txt
+-r requirements-linting.txt
