@@ -1,0 +1,12 @@
+django_email_pal.egg-info/
+venv/
+*.sqlite3
+*.log
+__pycache__
+.python-version
+.tox/
+.coverage
+htmlcov/
+.cache/
+.mypy_cache/
+docs/_build/

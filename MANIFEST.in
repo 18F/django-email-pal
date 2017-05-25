@@ -1,0 +1,9 @@
+include README.md
+include LICENSE.md
+include metadata.py
+recursive-include docs *
+prune docs/_build
+recursive-include example *
+prune example/venv
+recursive-include emailpal/templates *
+recursive-include emailpal/jinja2 *
