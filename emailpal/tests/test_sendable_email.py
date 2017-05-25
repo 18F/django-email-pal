@@ -1,10 +1,6 @@
 from mypy_extensions import TypedDict
 
-from .. import VERSION, SendableEmail
-
-def test_version_is_a_string():
-    assert type(VERSION) is str
-
+from .. import SendableEmail
 
 MyContext = TypedDict('MyContext', {'full_name': str})
 
