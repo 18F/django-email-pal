@@ -26,12 +26,12 @@ from GitHub for now::
 Required settings
 ~~~~~~~~~~~~~~~~~
 
-Add ``emailpal`` to your ``INSTALLED_APPS`` setting, e.g.:
+Add ``emailpal.apps.EmailPalConfig`` to your ``INSTALLED_APPS`` setting, e.g.:
 
 .. code-block:: python
 
    INSTALLED_APPS = (
        # ...
-       'emailpal',
+       'emailpal.apps.EmailPalConfig',
        # ...
    )
