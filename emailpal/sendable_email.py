@@ -36,8 +36,8 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
         pass  # pragma: no cover
 
     def _cast_to_dict(self, ctx: T) -> Dict[str, Any]:
-        # TODO: Let's actually assert that ctx is a dict subclass
-        # and raise a helpful exception if not.
+        if not isinstance(ctx, dict):
+            raise ValueError('context must be a dict subclass')
         return cast(Dict[str, Any], ctx)
 
     def render_body_as_plaintext(self, ctx: T) -> str:

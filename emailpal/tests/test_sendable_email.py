@@ -62,6 +62,12 @@ def test_email_sending_works(mail_connection):
     assert alt[1] == 'text/html'
 
 
+def test_error_raised_if_ctx_is_not_a_dict():
+    with pytest.raises(ValueError) as excinfo:
+        MySendableEmail()._cast_to_dict(1)  # type: ignore
+    assert 'must be a dict subclass' in str(excinfo)
+
+
 def test_unimportable_sendable_email_raises_import_error():
     with pytest.raises(ImportError):
         with override_settings(SENDABLE_EMAILS=['boop']):
