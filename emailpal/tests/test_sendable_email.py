@@ -1,4 +1,9 @@
+import pytest
 from mypy_extensions import TypedDict
+from django.apps import apps
+from django.conf import settings
+from django.test import override_settings
+from django.core.exceptions import ImproperlyConfigured
 
 from .. import SendableEmail
 
@@ -30,3 +35,31 @@ def test_sending_email_works():
     e.send_messages(ctx)
 
     # TODO: Ensure that a message was sent to Django's fake email outbox.
+
+
+def test_unimportable_sendable_email_raises_import_error():
+    with pytest.raises(ImportError):
+        with override_settings(SENDABLE_EMAILS=['boop']):
+            pass
+    # This is weird, but required for the next test to not explode.
+    # I think b/c the former exception was raised in a way that "broke"
+    # override_settings, preventing it from restoring the old value.
+    delattr(settings, 'SENDABLE_EMAILS')
+
+
+def test_non_sendable_email_raises_improperly_configured_error():
+    with pytest.raises(ImproperlyConfigured):
+        with override_settings(SENDABLE_EMAILS=['unittest.TestCase']):
+            pass
+    # This is weird, but required for the next test to not explode.
+    # I think b/c the former exception was raised in a way that "broke"
+    # override_settings, preventing it from restoring the old value.
+    delattr(settings, 'SENDABLE_EMAILS')
+
+
+@override_settings(SENDABLE_EMAILS=[
+    'emailpal.tests.test_sendable_email.MySendableEmail'
+])
+def test_sendable_email_works():
+    cfg = apps.get_app_config('emailpal')
+    assert cfg.sendable_emails == [MySendableEmail]

@@ -7,7 +7,7 @@ APP_DIR = MY_DIR.parent
 SETTINGS_DICT = {
     'BASE_DIR': str(APP_DIR),
     'INSTALLED_APPS': (
-        'emailpal',
+        'emailpal.apps.EmailPalConfig',
     ),
     'DATABASES': {
         'default': {
