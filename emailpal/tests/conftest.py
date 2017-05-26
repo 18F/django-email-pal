@@ -15,6 +15,7 @@ SETTINGS_DICT = {
             'NAME': str(APP_DIR / 'db.sqlite3'),
         },
     },
+    'EMAIL_BACKEND': 'django.core.mail.backends.locmem.EmailBackend',
     'MIDDLEWARE_CLASSES': (
         'django.middleware.common.CommonMiddleware',
     ),

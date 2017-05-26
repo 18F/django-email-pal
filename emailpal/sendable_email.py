@@ -82,4 +82,4 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
             reply_to=reply_to,
         )
         msg.attach_alternative(self.render_body_as_html(ctx), 'text/html')
-        return msg.send()
+        return msg.send(fail_silently=False)
