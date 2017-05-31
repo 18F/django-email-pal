@@ -19,6 +19,7 @@ SETTINGS_DICT = {
     'MIDDLEWARE_CLASSES': (
         'django.middleware.common.CommonMiddleware',
     ),
+    'ALLOWED_HOSTS': ['*'],
     'TEMPLATES': [{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [str(MY_DIR / 'templates')],

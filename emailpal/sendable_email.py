@@ -35,6 +35,15 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
     def template_name(self) -> str:
         pass  # pragma: no cover
 
+    def __init__(self):
+        if not isinstance(self.example_ctx, dict):
+            raise Exception(
+                '{} must have an example context defined '
+                'in its "example_ctx" property!'.format(
+                    self.__class__.__name__
+                )
+            )
+
     def _cast_to_dict(self, ctx: T) -> Dict[str, Any]:
         if not isinstance(ctx, dict):
             raise ValueError('context must be a dict subclass')
