@@ -1,17 +1,14 @@
 {% extends "emailpal/really_simple/base.html" %}
 
-{# Example content from https://github.com/leemunroe/responsive-html-email-template/blob/c12462fe223858f4d8bf9265453f7f1776640976/email.html #}
-
 {% block title %}Simple Transactional Email{% endblock %}
 
 {% block preheader %}This is preheader text. Some clients will show this text as a preview.{% endblock %}
 
 {% block content %}
-<p>Hi there,</p>
-<p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
+<p>Hello,</p>
+<p>This is a simple email which uses Lee Munroe's <em>Really Simple Responsive HTML Email Template</em> to be easily viewable across a wide range of mail clients.</p>
 
-{% include "emailpal/really_simple/cta.html" with action="learn more about this template" url="http://htmlemail.io" %}
+{% include "emailpal/really_simple/cta.html" with action="learn more about the template" url="https://github.com/leemunroe/responsive-html-email-template" %}
 
-<p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-<p>Good luck! Hope it works.</p>
+<p>Hopefully it will be useful.</p>
 {% endblock %}
