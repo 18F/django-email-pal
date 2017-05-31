@@ -1,42 +1,63 @@
 Introduction
 ============
 
+django-email-pal attempts to solve a number of issues we've
+had when iterating on projects at `18F <18f_>`_.
+
+"What kinds of emails are we sending out?"
+------------------------------------------
+
 Throughout the life of a project, designers and content authors
 often have a difficult time figuring out what kinds of emails
-their projects send out, because they're not easily discoverable
+their project sends out, because they're not easily discoverable
 or well-documented.
 
-Furthermore, email is often designed in HTML form first, with
-the plaintext alternative left as an afterthought. Just
-stripping the HTML tags to generate the plaintext doesn't always
-result in an intelligible email, as there may be buttons or
-hyperlinked phrases in the original HTML version that don't make
-much sense as plaintext. Yet it also doesn't make sense to
-require both content types to be specified completely independently
-of one another, as they *do* contain most of the same content.
+django-email-pal attempts to solve this by providing a built-in
+"example email gallery" that showcases example versions of every
+kind of email that can be sent out, in both HTML and plaintext
+formats, with accompanying documentation.
 
-Lastly, simply getting started with HTML email can be daunting due to
+This gallery also makes it very easy to *iterate* on the content and
+design of an email: instead of constantly sending oneself
+an email through the app, a designer can just make changes to
+a template and see the immediate effects in their browser, iterating
+on it just as they'd do with any other Django view.
+
+"Wait, we have to write our email's HTML like it's 1995?"
+---------------------------------------------------------
+
+Simply getting started with HTML email can be daunting due to
 the lack of standards and wide variety of email clients one must
-support.
+support. It should be easy to send HTML emails that look nice,
+without having to figure out a bunch of arcane tricks to ensure
+they don't break on popular email clients.
 
-django-email-pal attempts to solve these problems by:
+Solutions to this problem are varied. django-email-pal gives you
+the freedom to choose your own HTML email framework if you need to,
+but it also comes with a nice solution out-of-the-box: Lee Munroe's
+`Really Simple Responsive HTML Email Template <reallysimple_>`_.
 
-* Providing a built-in "example email gallery" endpoint that
-  showcases example versions of every kind of email that can
-  be sent out, in both HTML and plaintext formats, with documentation;
+"There are people who can't read HTML email?"
+---------------------------------------------
 
-* Providing a simple two-pass template rendering strategy that allows
-  both the HTML and plaintext versions of an email to be generated
-  from the same template, thus allowing *most* of the content to be
-  reused but allowing for minor modifications based on the content
-  type;
+Email is often designed in HTML form first, with the plaintext
+alternative left as an afterthought.
 
-* Making it easy to add email rendering to the project's test suite,
-  ensuring that they behave as expected and don't crash the server.
+Some projects just strip the HTML tags to generate the plaintext.
+However, this doesn't always result in an intelligible email, as
+there may have been buttons or hyperlinked phrases in the original HTML
+version that no longer make much sense.
 
-* Making it easy to get started with sending lightweight
-  HTML emails that look nice across a wide variety of email clients by 
-  allowing developers to optionally leverage Lee Munroe's
-  `Really Simple Responsive HTML Email Template <reallysimple_>`_.
+Other projects have completely separate HTML and plaintext versions
+that are specified independently of one another. Yet this is
+cumbersome too, as both versions are *mostly* identical and can
+easily get out of sync.
 
+django-email-pal attempts to solve this by providing a simple two-pass
+template rendering strategy that allows both the HTML and plaintext
+versions of an email to be generated from the same template. This
+allows *most* of the content to be reused, but also allows for minor 
+modifications based on the email's content type.
+
+.. _18f: https://18f.gsa.gov/
 .. _reallysimple: https://github.com/leemunroe/responsive-html-email-template
