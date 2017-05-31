@@ -1,18 +1,33 @@
 import pytest
+from collections import OrderedDict
 from mypy_extensions import TypedDict
-from django.apps import apps
+from django.apps import apps as django_apps
 from django.conf import settings
 from django.core import mail
 from django.test import override_settings
 from django.core.exceptions import ImproperlyConfigured
 
-from .. import SendableEmail
+from .. import SendableEmail, apps
 
 MyContext = TypedDict('MyContext', {'full_name': str})
 
 class MySendableEmail(SendableEmail[MyContext]):
+    example_ctx = {'full_name': 'foo bar'}
     template_name = 'my_sendable_email.html'
     subject = 'howdy {full_name}!'
+
+
+MY_SENDABLE_EMAIL = '{}.{}'.format(__name__, MySendableEmail.__name__)
+
+
+def test_exception_raised_if_example_ctx_is_not_defined():
+    class BrokenEmail(SendableEmail):
+        template_name = 'blah'
+        subject = 'blah'
+
+    with pytest.raises(Exception) as excinfo:
+        BrokenEmail()
+    assert 'BrokenEmail must have an example context defined' in str(excinfo)
 
 
 def test_rendering_email_works():
@@ -88,9 +103,15 @@ def test_non_sendable_email_raises_improperly_configured_error():
     delattr(settings, 'SENDABLE_EMAILS')
 
 
-@override_settings(SENDABLE_EMAILS=[
-    'emailpal.tests.test_sendable_email.MySendableEmail'
-])
+@override_settings(SENDABLE_EMAILS=[MY_SENDABLE_EMAIL])
 def test_sendable_email_works():
-    cfg = apps.get_app_config('emailpal')
+    cfg = django_apps.get_app_config('emailpal')
     assert cfg.sendable_emails == [MySendableEmail]
+
+
+@override_settings(SENDABLE_EMAILS=[MY_SENDABLE_EMAIL])
+def test_get_sendable_emails_works():
+    assert apps.get_sendable_emails() == OrderedDict([
+        ('emailpal.tests.test_sendable_email.MySendableEmail',
+         MySendableEmail)
+    ])
