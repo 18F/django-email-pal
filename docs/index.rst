@@ -10,6 +10,7 @@ Welcome to django-email-pal's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   introduction
    quickstart
    developing
    reference
