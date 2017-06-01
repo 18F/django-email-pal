@@ -2,7 +2,7 @@ Introduction
 ============
 
 django-email-pal attempts to solve a number of issues we've
-had when iterating on projects at `18F <18f_>`_.
+had when iterating on projects at `18F`_.
 
 "What kinds of emails are we sending out?"
 ------------------------------------------
@@ -35,7 +35,7 @@ they don't break on popular email clients.
 Solutions to this problem are varied. django-email-pal gives you
 the freedom to choose your own HTML email framework if you need to,
 but it also comes with a nice solution out-of-the-box: Lee Munroe's
-`Really Simple Responsive HTML Email Template <reallysimple_>`_.
+`Really Simple Responsive HTML Email Template`_.
 
 "There are people who can't read HTML email?"
 ---------------------------------------------
@@ -59,5 +59,5 @@ versions of an email to be generated from the same template. This
 allows *most* of the content to be reused, but also allows for minor 
 modifications based on the email's content type.
 
-.. _18f: https://18f.gsa.gov/
-.. _reallysimple: https://github.com/leemunroe/responsive-html-email-template
+.. _18F: https://18f.gsa.gov/
+.. _Really Simple Responsive HTML Email Template: https://github.com/leemunroe/responsive-html-email-template
