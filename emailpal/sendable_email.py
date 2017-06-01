@@ -26,6 +26,25 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
     '''
     This abstract base class represents a template-based email that can
     be sent in HTML and plaintext formats.
+
+    When generating the email, the template is actually rendered
+    *twice*: once as HTML, and again as plain text. As explained in
+    :ref:`"There are people who can't read HTML email?"`, this
+    allows both formats to share most of their content, yet also
+    deviate where necessary.
+
+    So, aside from the context your code provides, the following
+    context variables are provided when rendering your template:
+
+    * ``is_html_email`` is ``True`` if (and only if) the
+      template is being used to render the email's HTML representation.
+
+    * ``is_plaintext_email`` is ``True`` if (and only if) the
+      template is being used to render the email's plaintext
+      representation.
+
+    Note that when rendering the email as plaintext, HTML tags
+    are automatically stripped from the generated content.
     '''
 
     @property
@@ -56,19 +75,6 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
         '''
         The path to the template used to render the email, e.g.
         ``my_app/my_email.html``.
-
-        Aside from the context your code provides, the following
-        context variables are also defined:
-
-        * ``is_html_email`` is ``True`` if (and only if) the
-          template is being used to render the email's HTML representation.
-
-        * ``is_plaintext_email`` is ``True`` if (and only if) the
-          template is being used to render the email's plaintext
-          representation.
-
-        Note that when rendering the email as plaintext, HTML tags
-        are automatically stripped from the generated content.
         '''
 
         pass  # pragma: no cover
