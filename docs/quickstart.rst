@@ -102,10 +102,11 @@ Then you can send the message with ``msg.send()``.
 Adding smoke tests
 ~~~~~~~~~~~~~~~~~~
 
-Since your email has an example context, it's very easy
-to add smoke tests for it. In fact, django-email-pal
-comes with a special test case mix-in that does just
-that!
+Since your email has an example context, it's straightforward
+to add smoke tests for it: just render the email with the
+example context and make sure nothing explodes. In fact, 
+django-email-pal comes with tooling that makes this
+particularly easy.
 
 Just create a new test module and add the following
 to it:
@@ -114,6 +115,6 @@ to it:
    :language: python
 
 Now when you run ``manage.py test`` (or whatever your
-choice of test runners is), all your emails will be
-rendered with their example context to ensure that
-they don't throw any exceptions.
+choice of test runners is), all the emails you've listed
+in ``settings.SENDABLE_EMAILS`` will be rendered with their
+example context to ensure that they don't throw any exceptions.
