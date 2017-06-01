@@ -1,4 +1,3 @@
-from typing import Dict, Any  # NOQA
 from emailpal import SendableEmail
 
 
@@ -7,6 +6,6 @@ class MySendableEmail(SendableEmail):
     This is a simple example email.
     """
 
-    template_name = 'emailpal/my-template.html'
-    subject = 'hello'
-    example_ctx = {}  # type: Dict[str, Any]
+    template_name = 'example/my_template.html'
+    subject = 'Check this out, {full_name}!'
+    example_ctx = {'full_name': 'Jane Doe'}

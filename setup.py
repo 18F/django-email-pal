@@ -22,7 +22,8 @@ class DevDocsCommand(SimpleCommand):
     def run(self):
         subprocess.check_call(
             ['sphinx-autobuild', '.', '_build/html', '-p', '8001',
-             '-z', os.path.join('..', 'emailpal')],
+             '-z', os.path.join('..', 'emailpal'),
+             '-z', os.path.join('..', 'example')],
             cwd='docs'
         )
 

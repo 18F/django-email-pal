@@ -122,6 +122,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Start SENDABLE_EMAILS doc snippet
 SENDABLE_EMAILS = [
     'example.emails.MySendableEmail',
 ]
+# End SENDABLE_EMAILS doc snippet
