@@ -6,4 +6,4 @@ Sendable emails
 .. currentmodule:: emailpal
 
 .. autoclass:: SendableEmail
-   :members: subject, template_name, send_messages
+   :members: subject, template_name, create_message

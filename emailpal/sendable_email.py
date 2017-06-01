@@ -2,7 +2,7 @@ import abc
 import re
 from typing import Dict, TypeVar, Generic, Dict, Any, cast  # NOQA
 from django.utils.safestring import SafeString
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
@@ -64,7 +64,7 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
         :py:meth:`str.format` and passed the same context that is
         passed to templates when rendering the email, so you can
         include context variables via brace notation, e.g.
-        ``Hello {full_name}!``.
+        ``"Hello {full_name}!"``.
         '''
 
         pass  # pragma: no cover
@@ -74,7 +74,7 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
     def template_name(self) -> str:
         '''
         The path to the template used to render the email, e.g.
-        ``my_app/my_email.html``.
+        ``"my_app/my_email.html"``.
         '''
 
         pass  # pragma: no cover
@@ -109,14 +109,17 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
     def render_subject(self, ctx: T) -> str:
         return self.subject.format(**self._cast_to_dict(ctx))
 
-    def send_messages(self, ctx: T, from_email=None, to=None, bcc=None,
-                      connection=None, attachments=None, headers=None,
-                      alternatives=None, cc=None, reply_to=None) -> int:
+    def create_message(self, ctx: T, from_email=None, to=None, bcc=None,
+                       connection=None, attachments=None, headers=None,
+                       alternatives=None, cc=None,
+                       reply_to=None) -> EmailMessage:
         '''
-        Renders the email using context specified by ``ctx`` and sends it.
+        Creates and returns a :py:class:`django.core.mail.EmailMessage`
+        which contains the plaintext and HTML versions of the email,
+        using the context specified by ``ctx``.
 
         Aside from ``ctx``, arguments to this method are the
-        same as those for :py:class:`django.core.mail.EmailMessage`.
+        same as those for :py:class:`~django.core.mail.EmailMessage`.
         '''
 
         msg = EmailMultiAlternatives(
@@ -133,4 +136,4 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
             reply_to=reply_to,
         )
         msg.attach_alternative(self.render_body_as_html(ctx), 'text/html')
-        return msg.send(fail_silently=False)
+        return msg
