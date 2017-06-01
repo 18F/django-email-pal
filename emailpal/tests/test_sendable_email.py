@@ -47,15 +47,17 @@ def mail_connection():
 
 
 def test_email_sending_works(mail_connection):
-    ctx = MyContext(full_name='boop jones')
-    e = MySendableEmail()
-    num_sent = e.send_messages(
-        ctx,
+    # Start create_message doc snippet
+    msg = MySendableEmail().create_message(
+        {'full_name': 'boop jones'},
         from_email='foo@example.org',
         to=['bar@example.org'],
         headers={'Message-ID': 'blah'},
-        connection=mail_connection
     )
+    # End create_message doc snippet
+
+    msg.connection = mail_connection
+    num_sent = msg.send(fail_silently=False)
     assert num_sent == 1
     assert len(mail.outbox) == 1
     msg = mail.outbox[0]

@@ -69,6 +69,9 @@ version of the email will use "Jane Doe".
 The email will also contain a call-to-action (CTA) that directs the
 user to a website.
 
+Registering the email with the gallery
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Now we just need to let the email example gallery know about the
 existence of your new template. Do this by adding the following to
 your project's ``settings.py``:
@@ -81,3 +84,17 @@ your project's ``settings.py``:
 Now you're set! Start your app and visit ``/examples/``; you should
 see the email gallery with a single entry, and be able to view your
 example email as HTML and plaintext.
+
+Sending the email
+~~~~~~~~~~~~~~~~~
+
+You can create a Django :py:class:`~django.core.mail.EmailMessage` with your
+email's :py:meth:`~emailpal.SendableEmail.create_message` method like so:
+
+.. literalinclude:: ../emailpal/tests/test_sendable_email.py
+   :language: python
+   :dedent: 4
+   :start-after: Start create_message doc snippet
+   :end-before: End create_message doc snippet
+
+Then you can send the message with ``msg.send()``.
