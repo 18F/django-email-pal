@@ -20,16 +20,6 @@ class MySendableEmail(SendableEmail[MyContext]):
 MY_SENDABLE_EMAIL = '{}.{}'.format(__name__, MySendableEmail.__name__)
 
 
-def test_exception_raised_if_example_ctx_is_not_defined():
-    class BrokenEmail(SendableEmail):
-        template_name = 'blah'
-        subject = 'blah'
-
-    with pytest.raises(Exception) as excinfo:
-        BrokenEmail()
-    assert 'BrokenEmail must have an example context defined' in str(excinfo)
-
-
 def test_rendering_email_works():
     ctx = MyContext(full_name='boop jones')
     e = MySendableEmail()

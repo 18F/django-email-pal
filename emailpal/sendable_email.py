@@ -23,26 +23,61 @@ def collapse_and_strip_tags(text: str) -> str:
 
 
 class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
-    example_ctx = None  # type: T
+    '''
+    This abstract base class represents a template-based email that can
+    be sent in HTML and plaintext formats.
+
+    When generating the email, the template is actually rendered
+    *twice*: once as HTML, and again as plain text. As explained in
+    :ref:`"There are people who can't read HTML email?"`, this
+    allows both formats to share most of their content, yet also
+    deviate where necessary.
+
+    So, aside from the context your code provides, the following
+    context variables are provided when rendering your template:
+
+    * ``is_html_email`` is ``True`` if (and only if) the
+      template is being used to render the email's HTML representation.
+
+    * ``is_plaintext_email`` is ``True`` if (and only if) the
+      template is being used to render the email's plaintext
+      representation.
+
+    Note that when rendering the email as plaintext, HTML tags
+    are automatically stripped from the generated content.
+    '''
+
+    @property
+    @abc.abstractmethod
+    def example_ctx(self) -> T:
+        '''
+        An example context with which the email can be rendered.
+        '''
+
+        pass  # pragma: no cover
 
     @property
     @abc.abstractmethod
     def subject(self) -> str:
+        '''
+        The subject line of the email. This is processed by
+        :py:meth:`str.format` and passed the same context that is
+        passed to templates when rendering the email, so you can
+        include context variables via brace notation, e.g.
+        ``Hello {full_name}!``.
+        '''
+
         pass  # pragma: no cover
 
     @property
     @abc.abstractmethod
     def template_name(self) -> str:
-        pass  # pragma: no cover
+        '''
+        The path to the template used to render the email, e.g.
+        ``my_app/my_email.html``.
+        '''
 
-    def __init__(self):
-        if not isinstance(self.example_ctx, dict):
-            raise Exception(
-                '{} must have an example context defined '
-                'in its "example_ctx" property!'.format(
-                    self.__class__.__name__
-                )
-            )
+        pass  # pragma: no cover
 
     def _cast_to_dict(self, ctx: T) -> Dict[str, Any]:
         if not isinstance(ctx, dict):
@@ -77,6 +112,13 @@ class SendableEmail(Generic[T], metaclass=abc.ABCMeta):
     def send_messages(self, ctx: T, from_email=None, to=None, bcc=None,
                       connection=None, attachments=None, headers=None,
                       alternatives=None, cc=None, reply_to=None) -> int:
+        '''
+        Renders the email using context specified by ``ctx`` and sends it.
+
+        Aside from ``ctx``, arguments to this method are the
+        same as those for :py:class:`django.core.mail.EmailMessage`.
+        '''
+
         msg = EmailMultiAlternatives(
             subject=self.render_subject(ctx),
             body=self.render_body_as_plaintext(ctx),

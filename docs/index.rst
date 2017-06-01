@@ -12,8 +12,8 @@ Welcome to django-email-pal's documentation!
 
    introduction
    quickstart
-   developing
    reference
+   developing
 
 Indices and tables
 ==================
