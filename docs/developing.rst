@@ -24,6 +24,21 @@ Then install django-email-pal in development mode::
 
     python setup.py develop
 
+Running the example app
+-----------------------
+
+An example Django project provides basic integration with
+django-email-pal. It can be used to manually ensure that everything
+works as expected.
+
+To use it, run the following from the root of the repository::
+
+    cd example
+    python manage.py migrate
+    python manage.py runserver
+
+At this point you should be able to visit the locally-hosted project.
+
 Running tests
 -------------
 
