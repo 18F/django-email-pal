@@ -19,4 +19,4 @@ EXAMPLE_DIR = ROOT_DIR / 'example'
 def test_example_app():
     subprocess.check_call([
         sys.executable, 'manage.py', 'test'
-], cwd=str(EXAMPLE_DIR))
+    ], cwd=str(EXAMPLE_DIR))
