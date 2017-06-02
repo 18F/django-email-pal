@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Sendable email examples</title>
+<h1>Sendable email examples</h1>
+<ul>
+{% for example in examples %}
+  <li>
+    <p>
+    {{ example.name }}
+    (<a href="{{ example.html_url }}">HTML</a> |
+     <a href="{{ example.txt_url }}">plaintext</a>)
+    </p>
+    {% if example.description %}<p>{{ example.description }}</p>{% endif %}
+  </li>
+{% endfor %}
+</ul>

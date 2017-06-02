@@ -1,0 +1,18 @@
+{% extends "emailpal/really_simple/base.html" %}
+
+{% block content %}
+<p>Hello {{ full_name }},</p>
+
+<p>This is a simple email which uses Lee Munroe's <em>Really Simple
+  Responsive HTML Email Template</em> to be easily viewable across a
+  wide range of mail clients.</p>
+
+{# Start jinja2 doc snippet #}
+{% with action="learn more about the template",
+        url="https://github.com/leemunroe/responsive-html-email-template" %}
+{% include "emailpal/really_simple/cta.html" %}
+{% endwith %}
+{# End jinja2 doc snippet #}
+
+<p>Hopefully it will be useful.</p>
+{% endblock %}

@@ -40,11 +40,19 @@ Call-to-action (CTA)
 
 CTAs can be included via the ``emailpal/really_simple/cta.html`` template.
 
-Here's an example of using the CTA:
+Here's an example of using the CTA with Django templates:
 
 .. code-block:: html+django
 
    {% include "emailpal/really_simple/cta.html" with action="view the site" url="https://example.org" %}
+
+And here's the equivalent in Jinja2:
+
+.. code-block:: html+django
+
+   {% with action="view the site", url="https://example.org" %}
+     {% include "emailpal/really_simple/cta.html" %}
+   {% endwith %}
 
 In the HTML version of the email, the above snippet will appear as a large
 button with the text "View The Site" on it; clicking the button will
