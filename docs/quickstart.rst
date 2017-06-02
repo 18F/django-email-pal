@@ -62,6 +62,19 @@ put this in it:
 .. literalinclude:: ../example/example/templates/example/my_template.html
    :language: html+django
 
+.. important::
+
+    If you're using Jinja2, you'll want to put the template at
+    ``example\jinja2\example\my_template.html``.
+
+    Also, replace the line containing the ``{% include %}`` directive
+    with the following:
+
+    .. literalinclude:: ../example/example/jinja2/example/my_template.html
+       :language: html+django
+       :start-after: Start jinja2 doc snippet
+       :end-before: End jinja2 doc snippet
+
 As you can probably guess, the email expects the context variable
 ``full_name`` to contain the full name of the recipient. The example
 version of the email will use "Jane Doe".
@@ -111,7 +124,7 @@ particularly easy.
 Just create a new test module and add the following
 to it:
 
-.. literalinclude:: ../example/example/tests.py
+.. literalinclude:: ../example/example/tests/test_emails_do_not_smoke.py
    :language: python
 
 Now when you run ``manage.py test`` (or whatever your
