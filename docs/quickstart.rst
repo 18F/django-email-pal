@@ -98,3 +98,23 @@ email's :py:meth:`~emailpal.SendableEmail.create_message` method like so:
    :end-before: End create_message doc snippet
 
 Then you can send the message with ``msg.send()``.
+
+Adding smoke tests
+~~~~~~~~~~~~~~~~~~
+
+Since your email has an example context, it's straightforward
+to add smoke tests for it: just render the email with the
+example context and make sure nothing explodes. In fact, 
+django-email-pal comes with tooling that makes this
+particularly easy.
+
+Just create a new test module and add the following
+to it:
+
+.. literalinclude:: ../example/example/tests.py
+   :language: python
+
+Now when you run ``manage.py test`` (or whatever your
+choice of test runners is), all the emails you've listed
+in ``settings.SENDABLE_EMAILS`` will be rendered with their
+example context to ensure that they don't throw any exceptions.
